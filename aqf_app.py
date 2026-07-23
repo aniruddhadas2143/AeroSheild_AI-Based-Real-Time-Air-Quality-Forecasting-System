@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1fnSC3cZfeTLt02mRGF_qqcUSmg0HzlNO
 """
 
-!npm install -g localtunnel
+
 
 import streamlit as st
 import pandas as pd
