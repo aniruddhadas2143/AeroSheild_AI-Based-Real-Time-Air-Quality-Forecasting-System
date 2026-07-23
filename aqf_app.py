@@ -12,7 +12,7 @@ Original file is located at
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import joblib
 import datetime
 
 # --- Page Configuration & Styling ---
@@ -261,7 +261,7 @@ if assets_loaded:
                 use_container_width=True
             )
 
-import joblib
+
 from sklearn.preprocessing import MinMaxScaler
 from xgboost import XGBRegressor
 import numpy as np
