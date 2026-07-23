@@ -265,9 +265,6 @@ Original file is located at
 #             )
 
 
-from sklearn.preprocessing import MinMaxScaler
-from xgboost import XGBRegressor
-import numpy as np
 
 print(" Generating and saving fallback ML assets...")
 scaler_X = MinMaxScaler()
@@ -281,13 +278,10 @@ placeholder_model.fit(np.random.rand(10, 7), np.random.rand(10, 1))
 joblib.dump(placeholder_model, 'xgboost_aqi_model.pkl')
 print(" SUCCESS! The following files have been created in your directory:")
 
-import os
+
 print([f for f in os.listdir('.') if f.endswith('.pkl')])
 
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten
-import numpy as np
+
 
 dl_model = Sequential([
     Flatten(input_shape=(24, 7)),
