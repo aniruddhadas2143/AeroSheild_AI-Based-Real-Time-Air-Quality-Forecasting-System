@@ -3,5 +3,5 @@ pandas
 numpy
 joblib
 xgboost
-tensorflow
+tensorflow-cpu
 scikit-learn
