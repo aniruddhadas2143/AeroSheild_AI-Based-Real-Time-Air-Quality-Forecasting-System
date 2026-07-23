@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1fnSC3cZfeTLt02mRGF_qqcUSmg0HzlNO
 """
 
-!pip install streamlit joblib tensorflow scikit-learn pandas numpy
 !npm install -g localtunnel
 
 import streamlit as st
