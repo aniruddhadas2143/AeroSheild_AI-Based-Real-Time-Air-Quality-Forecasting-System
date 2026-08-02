@@ -98,8 +98,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @st.cache_resource
 def load_ml_assets():
     xgb_model = joblib.load(os.path.join(BASE_DIR, 'xgboost_aqi_model.pkl'))
-    scaler_X = joblib.load(os.path.join(BASE_DIR, 'scaler_X.pkl'))
-    scaler_y = joblib.load(os.path.join(BASE_DIR, 'scaler_y.pkl'))
+    scaler_X = joblib.load(os.path.join(BASE_DIR, 'Scaler_X.pkl'))
+    scaler_y = joblib.load(os.path.join(BASE_DIR, 'Scaler_Y.pkl'))
     return xgb_model, scaler_X, scaler_y
 
 try:
