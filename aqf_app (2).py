@@ -8,7 +8,7 @@ Original file is located at
 """
 
 
-!npm install -g localtunnel
+
 
 import streamlit as st
 import pandas as pd
