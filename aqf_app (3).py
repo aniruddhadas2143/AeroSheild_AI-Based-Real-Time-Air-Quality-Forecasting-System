@@ -92,11 +92,19 @@ if not st.session_state.authenticated:
 
 # --- MAIN APP ASSETS (ONLY ACCESSED IF LOGGED IN) ---
 # ✅ WITH THIS UPDATED BLOCK:
+
+# Define absolute base directory of the script file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 @st.cache_resource
 def load_ml_assets():
-    xgb_model = joblib.load('xgboost_aqi_model.pkl')
-    scaler_X = joblib.load('scaler_X.pkl')
-    scaler_y = joblib.load('scaler_y.pkl')
+    xgb_path = os.path.join(BASE_DIR, 'xgboost_aqi_model.pkl')
+    scaler_x_path = os.path.join(BASE_DIR, 'scaler_X.pkl')
+    scaler_y_path = os.path.join(BASE_DIR, 'scaler_y.pkl')
+    
+    xgb_model = joblib.load(xgb_path)
+    scaler_X = joblib.load(scaler_x_path)
+    scaler_y = joblib.load(scaler_y_path)
     return xgb_model, scaler_X, scaler_y
 
 try:
