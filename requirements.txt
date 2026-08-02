@@ -1,7 +1,7 @@
-streamlit
-pandas
-numpy
-joblib
-xgboost
-tensorflow-cpu
+streamlit>=1.30.0
+pandas>=2.0.0
+numpy<2.0.0
 scikit-learn
+xgboost
+joblib
+tensorflow-cpu==2.15.0
