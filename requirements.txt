@@ -1,0 +1,16 @@
+# Streamlit Community Cloud already provides `streamlit` itself, but pinning
+# it here keeps local and deployed environments in sync.
+streamlit
+
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+matplotlib
+
+# tensorflow-cpu is a much smaller download than the full `tensorflow`
+# package (no GPU support needed on Community Cloud's free tier, and the
+# smaller image avoids hitting the build/memory limits). Swap back to
+# `tensorflow` if you deploy somewhere with more resources and want GPU support.
+tensorflow-cpu
