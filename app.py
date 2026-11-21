@@ -34,11 +34,26 @@ FEATURE_COLS = ["PT08.S1(CO)", "PT08.S2(NMHC)", "PT08.S3(NOx)", "PT08.S5(O3)", "
 TARGET_COL = "CO(GT)"
 LOOKBACK = 24  # 24-hour sequence length for the CNN-BiLSTM model
 
-MODEL_DIR = "models"
-XGB_MODEL_PATH = f"{MODEL_DIR}/xgboost_aqi_model.pkl"
-SCALER_X_PATH = f"{MODEL_DIR}/scaler_X.pkl"
-SCALER_Y_PATH = f"{MODEL_DIR}/scaler_y.pkl"
-DL_MODEL_PATH = f"{MODEL_DIR}/cnn_bilstm_model.keras"
+from pathlib import Path
+
+# Resolve paths relative to THIS file (not the process working directory), so it
+# works the same locally and on Streamlit Cloud. Each artifact is looked for in
+# <app dir>/models/ first, then directly next to app.py as a fallback.
+BASE_DIR = Path(__file__).resolve().parent
+
+
+def find_artifact(filename):
+    for folder in (BASE_DIR / "models", BASE_DIR):
+        candidate = folder / filename
+        if candidate.is_file():
+            return str(candidate)
+    return str(BASE_DIR / "models" / filename)  # default path (reported if missing)
+
+
+XGB_MODEL_PATH = find_artifact("xgboost_aqi_model.pkl")
+SCALER_X_PATH = find_artifact("scaler_X.pkl")
+SCALER_Y_PATH = find_artifact("scaler_y.pkl")
+DL_MODEL_PATH = find_artifact("cnn_bilstm_model.keras")
 
 
 @st.cache_resource
@@ -46,6 +61,20 @@ def load_artifacts():
     """Load all model artifacts once per session. Missing files degrade
     gracefully (the affected tab just tells the user what's missing) instead
     of crashing the whole app."""
+    missing = [p for p in (XGB_MODEL_PATH, SCALER_X_PATH, DL_MODEL_PATH) if not Path(p).is_file()]
+    if missing:
+        repo_files = sorted(
+            str(f.relative_to(BASE_DIR)) for f in BASE_DIR.rglob("*")
+            if f.is_file() and ".git" not in f.parts
+        )
+        st.error(
+            "Model files were not found in the deployed repo. Make sure the four files "
+            "(xgboost_aqi_model.pkl, scaler_X.pkl, scaler_y.pkl, cnn_bilstm_model.keras) "
+            "are committed to GitHub inside a `models/` folder next to app.py."
+        )
+        with st.expander("Files the app can actually see"):
+            st.code("\n".join(repo_files))
+
     xgb_model = None
     scaler_X = None
     scaler_y = None
